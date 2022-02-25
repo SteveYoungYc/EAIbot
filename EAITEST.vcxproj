@@ -21,6 +21,10 @@
   <ItemGroup>
     <ClCompile Include="EAIbotConsole.cpp" />
     <ClCompile Include="LoadEAIDll.cpp" />
+    <ClCompile Include="Robot.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Robot.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
