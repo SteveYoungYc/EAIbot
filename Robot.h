@@ -18,4 +18,5 @@ public:
 	Robot();
 	~Robot();
 	void direction_control(float linear_velocity, float angular_velocity);
+	void run();
 };

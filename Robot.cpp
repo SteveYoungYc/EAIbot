@@ -16,13 +16,20 @@ Robot::Robot() {
 	cout << "Chassis initialized." << endl;
 
 	if (!VC_IsNetWorkConnected()) {
-		cout << "Connection failed!";
+		cout << "Connection failed!" << endl;
 		return;
 	}
-	cout << "EAI connected";
+	cout << "EAI connected" << endl;
+
+	// UINT_PTR TIMER = 1;
+	// SetTimer(hWnd, TIMER, 100, NULL);
 }
 
 Robot::~Robot() {
+
+}
+
+void Robot::run() {
 
 }
 
