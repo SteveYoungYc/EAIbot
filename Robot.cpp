@@ -20,9 +20,6 @@ Robot::Robot() {
 		return;
 	}
 	cout << "EAI connected" << endl;
-
-	// UINT_PTR TIMER = 1;
-	// SetTimer(hWnd, TIMER, 100, NULL);
 }
 
 Robot::~Robot() {
