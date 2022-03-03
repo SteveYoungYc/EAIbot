@@ -7,9 +7,15 @@
 #include "LoadEAIDll.h"
 
 #include <cstring>
+#include <string>
 #include "HCNetSDK.h"
 
 using namespace std;
+
+struct RobotMsg {
+	float linearVelocity;
+	float angularVelocity;
+};
 
 class Robot {
 private:
