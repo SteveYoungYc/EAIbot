@@ -20,11 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EAIbotConsole.cpp" />
+    <ClCompile Include="FVector.cpp" />
     <ClCompile Include="LoadEAIDll.cpp" />
     <ClCompile Include="Robot.cpp" />
+    <ClCompile Include="SharedMemory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FVector.h" />
     <ClInclude Include="Robot.h" />
+    <ClInclude Include="SharedMemory.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
