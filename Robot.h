@@ -8,6 +8,7 @@
 
 #include <cstring>
 #include <string>
+#include <vector>
 #include "HCNetSDK.h"
 #include "FVector.h"
 #include "SharedMemory.h"
@@ -19,6 +20,8 @@ class Robot {
 private:
 	FVector next_pos;
 	SharedMemory shared_mem;
+	vector<Position> route;
+
 public:
 	Robot();
 	~Robot();

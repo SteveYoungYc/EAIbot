@@ -1,10 +1,12 @@
 #include "Robot.h"
 
 Robot::Robot() {
-	next_pos.zero();
-	next_pos.x = 1;
-	next_pos.y = 2;
-	next_pos.z = 3;
+    shared_mem.create(L"RealRobotAsServer");
+    route.push_back(Position{ 0, 0, 0 });
+    route.push_back(Position{ 100, 0, 0 });
+    route.push_back(Position{ 100, 100, 0 });
+    route.push_back(Position{ 0, 100, 0 });
+
 	string IP = "192.168.31.200";
 	if (!LoadEAIdll()) {
 		cout << "Load EAIDll failed!" << endl;
@@ -21,9 +23,10 @@ Robot::Robot() {
 
 	if (!VC_IsNetWorkConnected()) {
 		cout << "Connection failed!" << endl;
-		return;
+        return;
 	}
 	cout << "EAI connected" << endl;
+
 }
 
 Robot::~Robot() {
@@ -49,6 +52,8 @@ DWORD WINAPI Robot::mytimernull(LPVOID args) {
     float linear_velocity, angular_velocity;
     UINT timerid1 = SetTimer(NULL, 0, 100, NULL);
 
+    uint32_t time = 0;
+    uint32_t pos_count = 0;
     while ((bRet = GetMessage(&msg, NULL, 0, 0)) != 0) {
         if (bRet == -1) {
             return -1;
@@ -56,16 +61,17 @@ DWORD WINAPI Robot::mytimernull(LPVOID args) {
         else {
             if (msg.message == WM_TIMER) {
                 if (msg.wParam == timerid1) {
-                    shared_mem.open(L"UnrealRobotAsServer");
-                    Msg msg;
-                    if (shared_mem.read(&msg) < 0) {
-                        return -1;
+                    if (time == 0) {
+                        Msg msg;
+                        msg.pos = route.at(pos_count);
+                        cout << "pos_count: " << pos_count << " " << msg.pos.x << " " << msg.pos.y << " " << msg.pos.z << " " << endl;
+                        if (shared_mem.write(&msg) < 0) {
+                            return -1;
+                        }
+                        pos_count = (pos_count + 1) % route.size();
+                        // direction_control(linear_velocity, -angular_velocity);
                     }
-                    linear_velocity = msg.linear_velocity;
-                    angular_velocity = msg.angular_velocity;
-                    cout << linear_velocity << " " << angular_velocity << endl;
-                    // direction_control(linear_velocity, -angular_velocity);
-                    shared_mem.close();
+                    time = (time + 1) % 50;
                 }
             }
             else {
